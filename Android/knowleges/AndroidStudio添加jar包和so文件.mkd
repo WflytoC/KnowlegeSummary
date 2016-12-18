@@ -1,0 +1,7 @@
+AndroidStudio添加jar包：
+
+* 将jar包复制到app/libs中，然后右键，弹出菜单，选择`Add As Library`
+
+AndroidStudio添加so文件：
+
+* 将so文件复制到app/libs中，在build.gradle文件中添加：`sourceSets.main.jniLibs.srcDirs = ['libs']`

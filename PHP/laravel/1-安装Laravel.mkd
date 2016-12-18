@@ -1,0 +1,64 @@
+####安装Composer
+
+```
+curl -sS https://getcomposer.org/installer | php
+
+mv composer.phar /usr/local/bin/composer
+```
+
+####创建Laravel项目
+
+```
+composer create-project --prefer-dist laravel/laravel blog
+```
+
+####本地运行Laravel项目
+
+```
+php artisan serve
+```
+
+####配置Laravel项目
+
+
+* 安装好Laravel项目后，应当将服务器的`document/web root`指向`public`目录
+* 安装好Laravel项目后，需要配置某些权限。需要赋予`storage`和`bootstrap/cache`目录写入的权限。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,7 @@
+####`AndroidStudio`生成签名文件，以及SHA1和MD5值
+
+* Build -> Generate Signed APK -> Key store path(Create new...) -> 生成`.jks`文件
+* 将目录切换成`xxx.jks`文件，输入｀keytool -list -v -keystore xxx.jks｀，生成相关文件
+
+
+

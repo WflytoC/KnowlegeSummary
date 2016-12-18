@@ -1,0 +1,25 @@
+####Webpack的工作方式
+
+把你的项目当做一个整体，通过一个给定的主文件（如：index.js），Webpack将从这个文件开始找到你的项目的所有依赖文件，使用loaders处理它们，最后打包为一个浏览器可识别的JavaScript文件。
+
+####利用终端来使用webpack
+
+打包命令：
+
+```
+webpack main.js(入口文件) bundle.js(打包后的文件)
+```
+
+####利用配置文件来使用webpack
+
+在工程根目录下创建webpack.connfig.js文件：
+
+```
+module.exports = {
+  entry:  __dirname + "/app/main.js",//已多次提及的唯一入口文件
+  output: {
+    path: __dirname + "/public",//打包后的文件存放的地方
+    filename: "bundle.js"//打包后输出文件的文件名
+  }
+}
+```

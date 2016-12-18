@@ -1,0 +1,7 @@
+####Sublime常用插件
+
+* Emmet：使用Tab键触发。安装Emmet后，可以输入少量代码后摁Tab键，系统自动补全代码。
+* AutoFileName：快速列出你想引用的文件夹里面所有文件的名字
+* BracketHighlighter：高亮显示[], (), {}, “”, ”, <tag></tag>符号，便于查看起始和结束标记。
+* ColorPicker：调色板，需要输入颜色时，可直接选取颜色。使用快捷键ctrl+shift+c即可打开调色板。
+* JsFormat：JsForma可以自动帮助你格式化JavaScript代码，形成一种通用的格式，比如对压缩、空格、换行的js代码进行整理，使得js代码结构清晰，易于观看。在已压缩的JS文件中，右键选择jsFormat或者使用默认快捷键（Ctrl+Alt+F）
