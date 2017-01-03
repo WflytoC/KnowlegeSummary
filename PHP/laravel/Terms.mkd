@@ -1,0 +1,4 @@
+Within a service provider, you always have access to the container via the `$this->app` property
+
+
+what do we mean by "bootstrapped"? In general, we mean registering things, including registering service container bindings, event listeners, middleware, and even routes.

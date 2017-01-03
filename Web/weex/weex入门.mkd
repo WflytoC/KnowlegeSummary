@@ -1,0 +1,7 @@
+####Weex语法
+
+Weex源代码由三个部分组成：
+
+* template模板
+* style样式
+* script脚本

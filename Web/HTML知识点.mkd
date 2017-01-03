@@ -1,0 +1,3 @@
+####HTML知识点
+
+* 全局属性(Global attributes)：对所有的HTML元素都适用

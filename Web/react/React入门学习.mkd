@@ -1,0 +1,27 @@
+####React安装
+
+通过CDN：
+
+```
+<!-- The core React library -->
+<script src="https://unpkg.com/react@15.4.0/dist/react.js"></script>
+<!-- The ReactDOM Library -->
+<script src="https://unpkg.com/react-dom@15.4.0/dist/react-dom.js"></script>
+```
+
+####React涉及的概念
+
+* props
+* state
+* JSX：JavaScript的扩展
+
+
+####开发
+
+运行命令：
+
+```
+$ babel --presets react src --watch --out-dir out
+```
+
+该命令会时刻将src目录下的JSX语法编译成浏览器可以识别的JavaScript代码到out目录下。

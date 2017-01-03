@@ -1,0 +1,24 @@
+####Activity转场动画
+
+
+Android 5.0 提供了三种Transition类型
+
+* 进入：决定Activity中的所有的视图怎么进入屏幕。
+* 退出：决定一个Activity中的所有视图怎么退出屏幕。
+* 共享元素：决定两个activities之间的过渡，怎么共享(它们)的视图。
+
+
+进入和退出包含如下动画效果
+
+* explode(分解) – 从屏幕中间进或出
+* slide(滑动) - 从屏幕边缘进或出地
+* fade(淡出) –通过改变屏幕上视图的不透明度达到添加或者移除视图的效果
+
+
+共享元素包含如下动画效果
+
+* changeBounds - 改变目标视图的布局边界
+* changeClipBounds - 裁剪目标视图边界
+ * changeTransform - 改变目标视图的缩放比例和旋转角度
+ * changeImageTransform - 改变目标图片的大小和缩放比例
+

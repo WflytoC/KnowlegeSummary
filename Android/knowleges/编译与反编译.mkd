@@ -1,0 +1,12 @@
+####Android反编译
+
+* smali，Baksmali分别是指安卓系统里的Java虚拟机（Dalvik）所使用的一种.dex格式文件的汇编器，反汇编器
+* 
+
+
+
+反编译工具：
+
+* [Apktool](https://ibotpeaches.github.io/Apktool/)
+* [jd-gui](http://jd.benow.ca/)
+

@@ -1,0 +1,292 @@
+##Introduction
+
+ 通过远程链接Vue库
+
+```
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+```
+
+Vue常用的指令：
+
+* v-bind：将元素(组件)的某个属性(attribute)与Vue实例的某个属性(property)绑定
+* v-if：决定元素是否展示
+* v-for：使用数组来展示一系列子项
+* v-on：绑定事件监听器，用来调用Vue实例的方法
+* v-model：在表单输入和应用状态间产生双向绑定
+
+注册组件：
+
+```
+Vue.component('todo-item', {
+    props: ['todo'],
+    template: '<li>{{todo.text}}</li>'
+});
+```
+
+####The Vue Instance
+
+实例化Vue对象时，需要传递一个options对象，该对象包含data，template，element to mount on，methods，lifecycle callbacks等。
+
+所有的Vue组件本质上扩展(extended)的Vue实例。
+
+每个Vue实例会代理data对象中的所有属性：
+
+```
+var data = { a: 1 }
+var vm = new Vue({
+  data: data
+})
+vm.a === data.a // -> true
+```
+
+除了data属性外，Vue实例也会暴露许多实例属性和方法，这些属性和方法都是以$为前缀。
+
+* vm.$data
+* vm.$el
+* vm.$watch
+
+
+Vue实例会经历一系列生命周期方法：
+
+* created
+* mounted
+* updated
+* destroyed
+
+##Template Syntax
+
+####插值：使用Mustache语法{{}}
+
+属性(attribute)：HTML属性无法使用mustaches，但是可以使用v-bind指令．
+
+```
+<div v-bind:id="dynamicId"></div>
+```
+
+Vue支持在数据绑定中使用JavaScript表达式：
+
+```
+{{ message.split('').reverse().join('') }}
+```
+
+####指令(Directives)
+
+指令是带有-v前缀的特殊属性，指令的任务是当指令的值发生变化时，对DOM应用副效果．
+
+某些指令可以接收参数，例如v-bind指令用来更新HTML属性．
+
+｀｀｀
+<a v-bind:href="url"></a>　//href是指令的参数
+｀｀｀
+
+另一个例子是v-on指令，用来监听DOM事件．
+
+Ｍodifier是由.表示的特殊后缀，用来表明指令以特殊的方法来绑定．例如
+
+```
+<form v-on:submit.prevent="onSubmit"></form>
+```
+
+.prevent这个modifier告诉v-on指令对触发的事件调用event.preventDefault()
+
+####Filter
+
+过滤器(filter)用来处理常见的文本格式．过滤器用在两个地方：插值和v-bind表达式．过滤器添加到JavaScript表达式后面，由|表示
+
+过滤器是JavaScript函数，该函数总是将表达式的值作为第一个参数．
+
+```
+{{ message | capitalize }}
+
+filters: {
+        capitalize: function(value) {
+            if(!value) {
+                return '';
+            }
+            value = value.toString();
+            return value.charAt(0).toUpperCase() + value.slice(1);
+        }
+    }
+```
+
+####Shorthands
+
+Vue为两个常用的指令提供了特殊的快捷键：v-bind和v-on
+
+```
+<a v-bind:href="url"></a>
+
+<a :href="url"></a>
+
+<a v-on:click="doSomething"></a>
+
+<a @click="doSomething"></a>
+```
+##Computed Properties and Watchers
+
+####Computed Properties
+
+```
+var vm = new Vue({
+   el: "#app", 
+   data: {
+       message: 'Hello'
+   },
+   computed: {
+       reversedMessage: function() {
+           return this.message.split('').reverse().join('');
+       }
+   }
+});
+```
+
+上面代码中声明了计算属性reversedMessage，我们提供的函数用来作为计算属性的getter函数．
+
+计算属性基于它们的依赖被缓存(computed properties are cached based on their dependencies)．计算属性只有当它的依赖发生变化时才会重新计算．
+
+计算属性默认只有getter方法，但是你可以提供setter方法：
+
+```
+var vm = new Vue({
+   el: "#app", 
+   data: {
+       firstName: 'Foo',
+       lastName: 'Bar'
+   },
+   computed: {
+       fullName:  {
+           get: function() {
+               return this.firstName + ' ' + this.lastName;
+           },
+           set: function(newValue) {
+               var names = newValue.split(' ');
+               this.firstName = names[0];
+               this.lastName = names[names.length - 1];
+           }
+       }
+   }
+});
+```
+
+
+####Watchers
+
+Vue通过watch选项提供了更普通的方式来响应数据的变化(watch的变量必须是Vue实例的属性)：
+
+```
+var vm = new Vue({
+   el: "#app", 
+   data: {
+       fullName: 'Wei Chuang',
+       lastName: 'Chuang'
+   },
+   watch: {
+       lastName: function(val) {
+           this.fullName = 'Wei' + ' ' + val;
+       }
+   }
+});
+
+vm.lastName = "Jie";
+```
+
+##Class and Style Bindings
+
+Vue对于使用v-bind来处理class和style进行改进．
+
+####Binding HTML Classes
+
+可以将对象传递给v-bind:class来动态地切换classes．
+
+```
+<div id="app" v-bind:class="{active: isActive}"> </div>
+```
+上面的语法表明div元素是否拥有active这个class取决于isActive属性是否是true．
+
+我们也可以传递数组到v-bind:class来应用一系列class：
+
+```
+<div id="app"   v-bind:class="[activeClass,errorClass]"> </div>
+
+data: {
+        activeClass: 'active',
+        errorClass: 'text-danger'
+    }
+```
+
+对自定义组件使用class属性时，这些classes会被添加到组件的根元素上．根元素已经存在的classes不会被重写．
+
+####Binding Inline Styles
+
+v-bind:style的对象语法
+
+```
+<div id="app" v-bind:style="{color: activeColor,fontSize: fontSize + 'px'}">Style Object</div>
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        activeColor: 'red',
+        fontSize: 30
+    }
+});
+```
+
+推荐直接绑定style对象：
+
+```
+<div id="app" v-bind:style="styleObject">Style Object</div>
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        styleObject: {
+            color: 'blue',
+            fontSize: '36px'
+        }
+    }
+});
+```
+
+v-bind:style的对象语法可以将多个style对象应用到相同的元素上：
+
+```
+<div v-bind:style="[baseStyles, overridingStyles]">
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

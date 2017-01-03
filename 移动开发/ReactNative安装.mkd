@@ -1,0 +1,13 @@
+创建React Native工程：
+
+```
+$react-native init AwesomeProject
+```
+
+运行工程：
+
+```
+$react-native start
+$react-native run-android
+$react-native run-ios
+```

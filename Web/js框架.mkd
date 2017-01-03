@@ -1,3 +1,0 @@
-js框架：
-
-* [phantomjs](http://phantomjs.org)：Scriptable Headless WebKit 

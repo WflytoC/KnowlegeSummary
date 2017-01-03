@@ -1,0 +1,64 @@
+####React Native基础
+
+```
+class HelloWorldApp extends Component {
+  render() {
+    return (
+      <Text>Hello world!</Text>
+    );
+  }
+}
+
+AppRegistry.registerComponent('HelloWorldApp', () => HelloWorldApp);
+```
+
+定义Component组件类，并使用AppRegistry来注册该组件．
+
+
+
+
+
+
+
+
+
+
+
+##Networking
+
+####Using Fetch
+
+####Using Other Networking Libraries
+
+[axios](https://github.com/mzabriskie/axios)
+
+##Using Navigator
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

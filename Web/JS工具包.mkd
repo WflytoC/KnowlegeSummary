@@ -1,0 +1,4 @@
+####常用的npm包
+
+* axios：Promise based HTTP client for the browser and node.js
+* lodash：A modern JavaScript utility library delivering modularity, performance & extras.

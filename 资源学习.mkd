@@ -1,0 +1,21 @@
+##Android资源
+
+* [fossdroid](https://fossdroid.com/)：Free and open source Android apps 
+* [Android关于分包方案、插件化动态加载APK或DEX 以及热补丁资料总结](http://www.jianshu.com/p/a85bc59d6549)
+
+
+
+####Laravel资源
+
+* [Laravel 完整开源项目大全](http://laravelacademy.org/laravel-project)：
+* 
+
+
+
+####Vuejs资源
+
+* [音乐搜索播放应用](https://github.com/Sioxas/vue-music/)
+* [基于webpack+Vue2.0搭建webapp](https://github.com/zhouzhihu/webapp)
+* [Vue2 Family Barrels](https://github.com/Vincent1993/V2EX-mobile)
+* [A Vue.js 2.0 UI Toolkit for Web](https://github.com/ElemeFE/element)
+* [uedo is a blog platform, built with Laravel and Vue.js](https://github.com/Vuedo/vuedo)

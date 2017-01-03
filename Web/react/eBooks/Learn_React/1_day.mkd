@@ -1,0 +1,492 @@
+为了使用React来构建web应用，需要将JSX转化为浏览器能够识别的JavaScript
+
+* 使用Node和一些构建工具来搭建开发环境：每次执行构建时，所有的JSX文件会被自动转化为JavaScript文件
+* 让浏览器依赖JavaScript库，来自动将JSX转化为它理解的语法．
+
+
+####搭建开发环境
+
+让浏览器依赖JavaScript库：
+
+```
+    <head>
+        <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
+        <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
+    </head>
+```
+
+####创建组件
+
+```
+        <div id="container"></div>
+        <script type="text/babel">
+
+            var Letter = React.createClass({
+                render: function() {
+                    return (
+                        <div>
+                            {this.props.children}
+                        </div>
+                    );
+                }
+            });
+
+            ReactDOM.render(
+                <div>
+                    <Letter>A</Letter>
+                    <Letter>B</Letter>
+                    <Letter>C</Letter>
+                </div>,
+                document.querySelector("#container")
+            );
+        </script>
+```
+
+分析：
+
+* 脚本的类型是`text/babel`
+* 每个组件都有props这个属性，该变量用于存储组件的属性
+
+
+####为组件添加样式
+
+* 理解React产生的HTML代码，然后为对应的元素添加样式
+* 为JSX中的元素添加className属性，相当于HTML中的class
+
+```
+定义组件：
+
+var Letter = React.createClass({
+                render: function() {
+                    return (
+                        <div className="letter">
+                            {this.props.children}
+                        </div>
+                    );
+                }
+            });
+            
+   添加样式：
+   
+   .letter {
+                padding: 10px;
+                margin: 10px;
+                background-color: #ffde00;
+                color: #333;
+                display: inline-block;
+                font-family: monospace;
+                font-size: 32px;
+                text-align: center;
+            }        
+```
+
+React应用样式的方式：
+
+* 定义一个对象(内容是CSS属性和值)
+* 通过使用style属性来将对象分配给JSX元素
+
+```
+var Letter = React.createClass({
+                render: function() {
+                    var letterStyle = {
+                        padding: 10,
+                        margin: 10,
+                        backgroundColor: "#ffde00",
+                        color: "#333",
+                        display: "inline-block",
+                        fontFamily: "monospace",fontSize: 32,
+                        textAlign: "center"
+                    };
+                    return (
+                        <div style={letterStyle}>
+                            {this.props.children}
+                        </div>
+                    );
+                }
+            });
+```
+
+####父组件与子组件如何传递属性
+
+```
+var Square = React.createClass({
+                render: function() {
+                    var squareStyle = {
+                        height: 150,
+                        backgroundColor: this.props.color
+                    };
+                    return (
+                        <div style={squareStyle}>
+
+                        </div>
+                    );
+                }
+            });
+
+ var Label = React.createClass({
+                render: function() {
+                    var labelStyle = {
+                        fontFamily: "sans-serif",
+                        fontWeight: "bold",
+                        padding: 13,
+                        margin: 0
+                    };
+                    return (
+                        <p style={labelStyle}>{this.props.color}</p>
+                    );
+                }
+            });
+
+ var Card = React.createClass({
+                render: function() {
+                    var cardStyle = {
+                        width: 150,
+                        height: 200,
+                        padding: 0,
+                        backgroundColor: "#FFF",
+                        WebkitFilter: "drop-shadow(0px 0px 5px #666)",
+                        filter: "drop-shadow(0px 0px 5px #666)"
+                    };
+                    return (
+                        <div style={cardStyle}>
+                            <Square color={this.props.color}/>
+                            <Label color={this.props.color}/>
+                        </div>
+                    );
+                }
+            });
+```
+
+####传递属性(props)
+
+组件的属性是存放在props对象中，为了传递这些属性，需要显式地从props对象中取出这些属性，然后在组件调用中列出。
+
+利用spread operator来传递属性：
+
+```
+<div id="container"></div>
+        <script type="text/babel">
+            var Display = React.createClass({
+                render: function() {
+                    return(
+                        <div>
+                            <p>{this.props.color}</p>
+                            <p>{this.props.num}</p>
+                            <p>{this.props.size}</p>
+                        </div>
+                    );
+                }
+            });
+
+            var Label = React.createClass({
+                render: function() {
+                    return (
+                        <Display {...this.props}/>
+                    );
+                }
+            });
+
+            var Shirt = React.createClass({
+                render: function() {
+                    return (
+                        <div>
+                            <Label {...this.props}/>
+                        </div>
+                    );
+                }
+            });
+
+            ReactDOM.render(
+                <div>
+                    <Shirt color="steelblue" num="3.14" size="medium" />
+                </div>,
+                document.querySelector("#container")
+            );
+        </script>
+```
+
+####介绍JSX
+
+在JSX中，只能返回单个根节点，下面是JSX的例子：
+
+```
+<div style={cardStyle}>  
+<Square color={this.props.color}/>  
+<Label color={this.props.color}/>
+</div>
+```
+
+####处理State
+
+组件的属性(props)是不可变，state可以存储变化的数据。
+
+React组件提供的API：
+
+* getInitialState：该方法恰好在组件被渲染(挂载，即render)之前运行，可以在该方法内初始化变量，该方法返回的对象会被作为组件的state对象的初始值
+* componentDidMount：该方法恰好在组件被渲染(挂载，即render)之后运行
+* setState：该方法允许修改state对象的值，该方法接收一个对象作为参数，这个对象里面包含了state对象所需要的所有属性，无论什么时候调用setState来更新state对象，组件的render方法会被自动调用。
+
+
+####处理Event
+
+```
+var CounterParent = React.createClass({
+                getInitialState: function() {
+                    return {
+                        count: 0
+                    };
+                },
+                increase: function(e) {
+                    this.setState({
+                        count: this.state.count + 1
+                    });
+                },
+                render: function() {
+
+                    return (
+                        <div>
+                            <Counter display={this.state.count} />
+                            <button onClick={this.increase}>+</button>
+                        </div>
+                    );
+                }
+            });
+            
+```
+利用`onClick`属性来为元素添加监听器。
+
+####组件生命周期
+
+生命周期方法：
+
+* componentWillMount
+* componentDidMount
+* componentWillUnmount
+* componentWillUpdate
+* componentDidUpdate
+* shouldComponentUpdate
+* componentWillReceiveProps
+
+下面三个方法严格来说不是生命周期方法：
+
+* getInitalState
+* getDefaultProps
+* render
+
+
+组件的生命周期分为三个阶段：、
+
+一.初始的渲染阶段 (Rendering Phase)：组件被添加到DOM上
+
+* getDefaultProps：声明this.props的默认值
+* getInitialState：声明this.state的默认值
+* componentWillMount：
+* render
+* componentDidMount
+
+二.更新阶段(Updating Phase)：组件的state发生变化时，组件会被更新和重新渲染
+
+* shouldComponentUpdate
+* componentWillUpdate
+* render
+* componentDidUpdate
+
+三.处理Prop变化
+
+* componentWillReceiveProps：该方法返回一个对象，包含了新的prop值
+* shouldComponentUpdate
+* componentWillUpdate
+* render
+* componentDidUpdate
+
+
+四.卸载阶段(Unmounting Phase)
+
+* componentWillUnmount
+
+
+####获取DOM元素
+
+为了在JSX和最终产生的HTML元素之间提供架桥，React提供了refs．
+
+```
+<script type="text/babel">
+        
+            var destination = document.querySelector("#container");
+
+            var Colorizer = React.createClass({
+                getInitialState: function() {
+                    return {
+                        color: "#AA00FF",
+                        bgColor: "#00BB22"
+                    };
+                },
+                colorValue: function(e) {
+                    this.setState({color: e.target.value});
+                },
+                setNewColor: function(e) {
+                    this.setState({bgColor: this.state.color});
+                    this._input.value = "";
+                    this._input.focus();
+                    e.preventDefault();
+                },
+                render: function() {
+                    var squareStyle = {
+                        backgroundColor: this.state.bgColor,
+                        width: 100,
+                        height: 100
+                    };
+                    var self = this;
+
+                    return (
+                        <div className="colorArea">
+                            <div style={squareStyle} className="colorSquare"></div>
+                            <form onSubmit={this.setNewColor}>
+                                <input 
+                                ref={
+                                    function(el) {
+                                        self._input = el;
+                                    }
+                                }
+                                onChange={this.colorValue}
+                                placeholder="Enter a color value">
+                                </input>
+                                <button type="submit">Go</button>
+                            </form>
+                        </div>
+                    );
+                }
+            });
+                
+
+            ReactDOM.render(
+                <div>
+                    <Colorizer />
+                </div>,
+                destination  
+            );
+
+        </script>
+```
+
+分析refs：
+
+```
+         ref={
+                 function(el) {
+                       self._input = el;
+                  }
+          }
+```
+
+当组件挂载时，这个匿名函数就会被调用．对最终产生的DOM元素的引用就会作为参数被传递．
+
+
+####React路由
+
+因为React Router不是React的一部分，我们需要添加对它的引用．
+
+```
+<script src="https://npmcdn.com/react-router/umd/ReactRouter.min.js"></script> 
+```
+
+在ReactDOM.render方法中定义路由：
+
+```
+ReactDOM.render(
+                <ReactRouter.Router>
+                    <ReactRouter.Route path="/" component={App}>
+
+                    </ReactRouter.Route>
+                </ReactRouter.Router>,
+                destination  
+            );
+```
+
+构建单页面应用，总有一部分会保持静态的．这个静态的部分，也叫做app frame．
+
+####搭建React开发环境
+
+* Node.js
+* Babel
+* webpack：将所有相关的代码打包成一个文件
+
+一.搭建初始的工程结构
+
+使用npm init来初始化Node.js，然后安装依赖项：
+
+```
+$npm install react react-dom --save
+$npm install webpack --save
+$npm install babel-loader babel-preset-es2015 babel-preset-react --save
+$npm install --save react-router
+```
+
+配置webpack(在工程根目录下创建webpack.config.js)
+
+```
+var webpack = require("webpack");
+var path = require("path");
+
+var DEV = path.resolve(__dirname,"dev"); //JSX存放的位置
+var OUTPUT = path.resolve(__dirname,"output");//转化后的文件存放的位置
+
+var config = {
+    entry: DEV + "/index.jsx",
+    output: {
+        path: OUTPUT,
+        filename: "myCode.js"
+    },
+    module: {
+        loaders: [{
+        include: DEV,
+        loader: "babel"
+    }]
+    }
+};
+
+module.exports = config;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

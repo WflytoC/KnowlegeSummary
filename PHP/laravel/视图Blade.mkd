@@ -1,0 +1,91 @@
+Template Inheritance
+
+* Defining A Layout
+* Extending A Layout
+
+Displaying Data
+
+* Blade & JavaScript Frameworks
+
+Control Structure
+
+* If Statements
+* Loops
+* The Loop Variable
+* Comments
+* PHP
+
+Including Sub-Views
+
+* Rendering Views For Collections
+ 
+ Stacks
+ 
+ Service Injection
+ 
+ Extending Blade
+
+
+Blade view files use the` .blade.php` file extension and are typically stored in the resources/views directory.
+
+use the @ symbol to inform the Blade rendering engine an expression should remain untouched.
+
+If you are displaying JavaScript variables in a large portion of your template, you may wrap the HTML in the @verbatim directive
+
+
+####Blade的常用指令
+
+* @yield：display the contents of a given sectio
+* @section： defines a section of content
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
